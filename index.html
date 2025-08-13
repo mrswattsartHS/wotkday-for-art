@@ -104,12 +104,6 @@
             100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
         }
         
-        @keyframes splash {
-            0% { transform: scale(0) rotate(0deg); opacity: 1; }
-            50% { transform: scale(1.2) rotate(180deg); opacity: 0.8; }
-            100% { transform: scale(0) rotate(360deg); opacity: 0; }
-        }
-        
         @keyframes drift {
             0% { transform: translateX(-100px) translateY(0px) rotate(0deg); }
             50% { transform: translateX(50vw) translateY(-20px) rotate(180deg); }
@@ -123,6 +117,21 @@
             100% { transform: translateY(-100px) scale(1); opacity: 0; }
         }
         
+        @keyframes pop-in-from-corner {
+            0% { 
+                transform: translate(110vw, -10vh) scale(0) rotate(0deg); 
+                opacity: 0; 
+            }
+            50% { 
+                opacity: 1; 
+                transform: translate(0, 0) scale(1.2) rotate(180deg); 
+            }
+            100% { 
+                transform: translate(0, 0) scale(1) rotate(360deg); 
+                opacity: 1; 
+            }
+        }
+        
         .bg-animation {
             position: fixed;
             pointer-events: none;
@@ -132,13 +141,60 @@
         .spiral-1 { animation: spiral 20s linear infinite; }
         .spiral-2 { animation: spiral 25s linear infinite reverse; }
         .paint-drop { animation: paint-drop 8s linear infinite; }
-        .splash-anim { animation: splash 3s ease-in-out infinite; }
         .drift-anim { animation: drift 15s linear infinite; }
         .bubble-anim { animation: bubble-float 12s linear infinite; }
+        .pop-in { animation: pop-in-from-corner 2s ease-out forwards; }
         
         .content-layer {
             position: relative;
             z-index: 10;
+        }
+        
+        /* Neon Effects */
+        @keyframes neon-glow {
+            0%, 100% { 
+                box-shadow: 
+                    0 0 5px currentColor,
+                    0 0 10px currentColor,
+                    0 0 15px currentColor,
+                    0 0 20px currentColor;
+            }
+            50% { 
+                box-shadow: 
+                    0 0 10px currentColor,
+                    0 0 20px currentColor,
+                    0 0 30px currentColor,
+                    0 0 40px currentColor;
+            }
+        }
+        
+        @keyframes neon-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        
+        .neon-blue {
+            border: 2px solid #00bfff;
+            color: #00bfff;
+            animation: neon-glow 2s ease-in-out infinite, neon-pulse 3s ease-in-out infinite;
+        }
+        
+        .neon-purple {
+            border: 2px solid #bf00ff;
+            color: #bf00ff;
+            animation: neon-glow 2.5s ease-in-out infinite, neon-pulse 3.5s ease-in-out infinite;
+        }
+        
+        .neon-teal {
+            border: 2px solid #00ffbf;
+            color: #00ffbf;
+            animation: neon-glow 3s ease-in-out infinite, neon-pulse 4s ease-in-out infinite;
+        }
+        
+        .neon-indigo {
+            border: 2px solid #4b0082;
+            color: #9370db;
+            animation: neon-glow 2.2s ease-in-out infinite, neon-pulse 3.2s ease-in-out infinite;
         }
         
         /* Glamorous Header Effects */
@@ -195,41 +251,102 @@
         .twinkle-star {
             animation: twinkle 1.5s ease-in-out infinite;
         }
+        
+        /* Animated Background Gradient */
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
     </style>
 </head>
-<body class="bg-slate-800 min-h-screen">
+<body class="min-h-screen" style="background: linear-gradient(-45deg, #1e3a8a, #3730a3, #1e40af, #0f172a, #1e293b, #374151); background-size: 400% 400%; animation: gradient-shift 15s ease infinite;">
     <!-- Animated Background Elements -->
     <div class="bg-animation">
-        <!-- Spiraling Paint Brushes -->
-        <div class="spiral-1 text-4xl" style="top: 10%; left: 10%;">🖌️</div>
-        <div class="spiral-2 text-3xl" style="top: 20%; right: 15%;">🎨</div>
-        <div class="spiral-1 text-5xl" style="top: 60%; left: 5%;">✏️</div>
-        <div class="spiral-2 text-3xl" style="top: 80%; right: 20%;">🖍️</div>
+        <!-- Spiraling Elements - Truly Random Distribution -->
+        <div class="spiral-1 text-9xl" style="top: 12%; right: 8%;">🖌️</div>
+        <div class="spiral-2 text-2xl" style="top: 73%; left: 85%;">🎨</div>
+        <div class="spiral-1 text-8xl" style="top: 45%; right: 25%;">✏️</div>
+        <div class="spiral-2 text-7xl" style="top: 89%; left: 15%;">🖍️</div>
+        <div class="spiral-1 text-xl" style="top: 28%; left: 92%; animation-delay: 3s;">🌈</div>
+        <div class="spiral-2 text-4xl" style="top: 67%; right: 12%; animation-delay: 6s;">⭐</div>
         
-        <!-- Floating Paint Drops -->
-        <div class="paint-drop text-6xl" style="left: 20%; animation-delay: 0s;">💧</div>
-        <div class="paint-drop text-4xl" style="left: 40%; animation-delay: 2s;">🔵</div>
-        <div class="paint-drop text-5xl" style="left: 60%; animation-delay: 4s;">🟡</div>
-        <div class="paint-drop text-4xl" style="left: 80%; animation-delay: 6s;">🔴</div>
+        <!-- Floating Paint Drops (colorful dots) - Random Spread -->
+        <div class="paint-drop text-6xl" style="left: 82%; animation-delay: 0s;">💧</div>
+        <div class="paint-drop text-3xl" style="left: 23%; animation-delay: 2s;">🔵</div>
+        <div class="paint-drop text-5xl" style="left: 91%; animation-delay: 4s;">🟡</div>
+        <div class="paint-drop text-2xl" style="left: 37%; animation-delay: 6s;">🔴</div>
+        <div class="paint-drop text-4xl" style="left: 68%; animation-delay: 1s;">🟢</div>
+        <div class="paint-drop text-xl" style="left: 14%; animation-delay: 3s;">🟣</div>
         
-        <!-- Splashing Paint -->
-        <div class="splash-anim text-6xl" style="top: 30%; left: 30%; animation-delay: 1s;">💥</div>
-        <div class="splash-anim text-4xl" style="top: 70%; right: 30%; animation-delay: 3s;">✨</div>
+        <!-- Drifting Art Supplies - Random Heights -->
+        <div class="drift-anim text-2xl" style="top: 83%; animation-delay: 0s;">📐</div>
+        <div class="drift-anim text-5xl" style="top: 19%; animation-delay: 5s;">✂️</div>
+        <div class="drift-anim text-3xl" style="top: 56%; animation-delay: 10s;">🖊️</div>
+        <div class="drift-anim text-xl" style="top: 91%; animation-delay: 8s;">📏</div>
         
-        <!-- Drifting Art Supplies -->
-        <div class="drift-anim text-3xl" style="top: 25%; animation-delay: 0s;">📐</div>
-        <div class="drift-anim text-4xl" style="top: 45%; animation-delay: 5s;">✂️</div>
-        <div class="drift-anim text-3xl" style="top: 65%; animation-delay: 10s;">🖊️</div>
+        <!-- Floating Bubbles (colorful dots) - Random Positions -->
+        <div class="bubble-anim text-xl" style="left: 76%; animation-delay: 1s;">⚪</div>
+        <div class="bubble-anim text-4xl" style="left: 29%; animation-delay: 4s;">⚪</div>
+        <div class="bubble-anim text-2xl" style="left: 84%; animation-delay: 7s;">⚪</div>
+        <div class="bubble-anim text-6xl" style="left: 41%; animation-delay: 10s;">⚪</div>
+        <div class="bubble-anim text-3xl" style="left: 93%; animation-delay: 2s;">⚪</div>
         
-        <!-- Floating Bubbles -->
-        <div class="bubble-anim text-2xl" style="left: 15%; animation-delay: 1s;">⚪</div>
-        <div class="bubble-anim text-3xl" style="left: 35%; animation-delay: 4s;">⚪</div>
-        <div class="bubble-anim text-2xl" style="left: 55%; animation-delay: 7s;">⚪</div>
-        <div class="bubble-anim text-4xl" style="left: 75%; animation-delay: 10s;">⚪</div>
+        <!-- Pop-in from Corner Art Supplies - Random Scatter -->
+        <div class="pop-in text-8xl" style="top: 71%; right: 35%; animation-delay: 1s;">🖌️</div>
+        <div class="pop-in text-xl" style="top: 24%; left: 78%; animation-delay: 3s;">🖍️</div>
+        <div class="pop-in text-9xl" style="top: 86%; right: 15%; animation-delay: 5s;">✏️</div>
+        <div class="pop-in text-7xl" style="top: 33%; left: 88%; animation-delay: 7s;">🖊️</div>
+        <div class="pop-in text-8xl" style="top: 59%; right: 5%; animation-delay: 9s;">🖌️</div>
         
-        <!-- More Spiraling Elements -->
-        <div class="spiral-1 text-3xl" style="top: 40%; right: 10%; animation-delay: 3s;">🌈</div>
-        <div class="spiral-2 text-4xl" style="top: 50%; left: 25%; animation-delay: 6s;">⭐</div>
+        <!-- Scattered Art Supplies - Completely Random -->
+        <div class="spiral-1 text-7xl" style="top: 77%; right: 52%; animation-delay: 2s;">🖍️</div>
+        <div class="spiral-2 text-xl" style="top: 41%; left: 88%; animation-delay: 4s;">✏️</div>
+        <div class="drift-anim text-9xl" style="top: 94%; animation-delay: 2s;">🖊️</div>
+        <div class="paint-drop text-8xl" style="left: 5%; animation-delay: 1s;">🖌️</div>
+        <div class="paint-drop text-5xl" style="left: 93%; animation-delay: 3s;">✏️</div>
+        <div class="bubble-anim text-xl" style="left: 52%; animation-delay: 2s;">🖍️</div>
+        <div class="bubble-anim text-8xl" style="left: 28%; animation-delay: 6s;">🖊️</div>
+        <div class="spiral-1 text-9xl" style="top: 18%; right: 45%; animation-delay: 5s;">🖌️</div>
+        <div class="spiral-2 text-6xl" style="top: 62%; left: 18%; animation-delay: 7s;">✏️</div>
+        <div class="drift-anim text-xl" style="top: 87%; animation-delay: 8s;">🖍️</div>
+        <div class="paint-drop text-7xl" style="left: 67%; animation-delay: 5s;">🖊️</div>
+        <div class="bubble-anim text-5xl" style="left: 8%; animation-delay: 9s;">🖌️</div>
+        <div class="spiral-1 text-8xl" style="top: 32%; left: 95%; animation-delay: 2s;">✏️</div>
+        <div class="spiral-2 text-4xl" style="top: 75%; right: 18%; animation-delay: 4s;">🖍️</div>
+        <div class="drift-anim text-9xl" style="top: 5%; animation-delay: 6s;">🖊️</div>
+        <div class="paint-drop text-6xl" style="left: 38%; animation-delay: 7s;">🖌️</div>
+        <div class="bubble-anim text-2xl" style="left: 85%; animation-delay: 3s;">✏️</div>
+        <div class="spiral-1 text-8xl" style="top: 52%; right: 88%; animation-delay: 8s;">🖍️</div>
+        
+        <!-- More Random Art Supplies -->
+        <div class="spiral-2 text-8xl" style="top: 25%; right: 72%; animation-delay: 3s;">🖊️</div>
+        <div class="drift-anim text-4xl" style="top: 81%; animation-delay: 1s;">🖌️</div>
+        <div class="paint-drop text-9xl" style="left: 75%; animation-delay: 4s;">✏️</div>
+        <div class="bubble-anim text-6xl" style="left: 45%; animation-delay: 8s;">🖍️</div>
+        <div class="spiral-1 text-7xl" style="top: 16%; left: 32%; animation-delay: 6s;">🖊️</div>
+        <div class="spiral-2 text-xl" style="top: 68%; right: 12%; animation-delay: 2s;">🖌️</div>
+        <div class="drift-anim text-5xl" style="top: 35%; animation-delay: 9s;">✏️</div>
+        <div class="paint-drop text-2xl" style="left: 15%; animation-delay: 1s;">🖍️</div>
+        <div class="bubble-anim text-8xl" style="left: 92%; animation-delay: 5s;">🖊️</div>
+        <div class="spiral-1 text-9xl" style="top: 48%; left: 22%; animation-delay: 7s;">🖌️</div>
+        <div class="spiral-2 text-xl" style="top: 72%; right: 95%; animation-delay: 4s;">✏️</div>
+        <div class="drift-anim text-3xl" style="top: 85%; animation-delay: 3s;">🖍️</div>
+        <div class="paint-drop text-8xl" style="left: 55%; animation-delay: 6s;">🖊️</div>
+        <div class="bubble-anim text-2xl" style="left: 22%; animation-delay: 2s;">🖌️</div>
+        <div class="spiral-1 text-7xl" style="top: 92%; left: 8%; animation-delay: 8s;">✏️</div>
+        
+        <!-- Even More Random Elements -->
+        <div class="spiral-2 text-3xl" style="top: 58%; right: 32%; animation-delay: 5s;">🖍️</div>
+        <div class="drift-anim text-xl" style="top: 15%; animation-delay: 2s;">🖊️</div>
+        <div class="paint-drop text-6xl" style="left: 82%; animation-delay: 8s;">🖌️</div>
+        <div class="bubble-anim text-2xl" style="left: 35%; animation-delay: 4s;">✏️</div>
+        <div class="spiral-1 text-5xl" style="top: 35%; left: 45%; animation-delay: 6s;">🖍️</div>
+        <div class="spiral-2 text-xl" style="top: 78%; right: 28%; animation-delay: 1s;">🖊️</div>
+        <div class="drift-anim text-4xl" style="top: 22%; animation-delay: 7s;">🖌️</div>
+        <div class="paint-drop text-3xl" style="left: 48%; animation-delay: 3s;">✏️</div>
+        <div class="bubble-anim text-6xl" style="left: 12%; animation-delay: 9s;">🖍️</div>
+        <div class="spiral-1 text-2xl" style="top: 68%; left: 85%; animation-delay: 4s;">🖊️</div>
     </div>
 
 
@@ -237,7 +354,7 @@
     <main class="max-w-6xl mx-auto px-6 py-12 content-layer">
         <!-- Work Day Instructions -->
         <section class="mb-12">
-            <div class="bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl p-8 card-shadow animate-fade-in-up hover-lift border border-blue-400">
+            <div class="bg-gradient-to-br from-blue-600 to-blue-800 bg-opacity-20 rounded-xl p-8 card-shadow animate-fade-in-up hover-lift neon-blue">
                 <h2 class="text-3xl font-bold text-white mb-6 text-center animate-scale-in">Today's Work Session</h2>
                 <div class="grid md:grid-cols-3 gap-8">
                     <div class="text-center animate-slide-in-left delay-100">
@@ -252,8 +369,8 @@
                     </div>
                     <div class="text-center animate-slide-in-right delay-300">
                         <div class="text-4xl mb-4 animate-pulse-slow">✨</div>
-                        <h3 class="text-xl font-semibold mb-3 text-cyan-200">3. Create & Progress</h3>
-                        <p class="text-blue-100">Work on your projects, ask questions if needed, and make meaningful progress.</p>
+                        <h3 class="text-xl font-semibold mb-3 text-cyan-200">3. Work on Studio Projects</h3>
+                        <p class="text-blue-100">Focus on your studio projects and other coursework, ask questions if needed.</p>
                     </div>
                 </div>
             </div>
@@ -263,7 +380,7 @@
 
         <!-- Work Session Timer -->
         <section class="mb-12">
-            <div class="bg-gradient-to-br from-purple-600 to-indigo-700 rounded-xl p-8 card-shadow animate-scale-in hover-lift border border-purple-400">
+            <div class="bg-gradient-to-br from-purple-600 to-indigo-700 bg-opacity-20 rounded-xl p-8 card-shadow animate-scale-in hover-lift neon-purple">
                 <h2 class="text-2xl font-bold text-white mb-6 text-center animate-fade-in-up">
                     <span class="animate-wiggle inline-block">⏰</span> Focus Timer
                 </h2>
@@ -287,7 +404,7 @@
 
         <!-- Staying on Pace Tips -->
         <section class="mb-12">
-            <div class="bg-gradient-to-r from-teal-600 to-cyan-700 rounded-xl p-8 border border-teal-400 animate-scale-in hover-lift">
+            <div class="bg-gradient-to-r from-teal-600 to-cyan-700 bg-opacity-20 rounded-xl p-8 animate-scale-in hover-lift neon-teal">
                 <h2 class="text-2xl font-bold text-white mb-6 animate-slide-in-left">
                     <span class="animate-bounce-gentle inline-block">🚀</span> Tips for Staying on Pace
                 </h2>
@@ -331,7 +448,7 @@
 
         <!-- Today's Reminders -->
         <section class="mb-12">
-            <div class="bg-gradient-to-r from-indigo-600 to-blue-700 rounded-xl p-8 border border-indigo-400 animate-fade-in-up hover-lift">
+            <div class="bg-gradient-to-r from-indigo-600 to-blue-700 bg-opacity-20 rounded-xl p-8 animate-fade-in-up hover-lift neon-indigo">
                 <h2 class="text-2xl font-bold text-white mb-6 animate-slide-in-left">
                     <span class="animate-bounce-gentle inline-block">📌</span> Work Day Reminders
                 </h2>
@@ -445,5 +562,5 @@
         // Initialize timer display
         updateTimerDisplay();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96eb8b6946946ccf',t:'MTc1NTEyMzA0Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96eba24640186ccf',t:'MTc1NTEyMzk4NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
